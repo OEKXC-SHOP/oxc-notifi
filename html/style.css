@@ -1,0 +1,518 @@
+:root {
+    /* Light Theme */
+    --light-bg: rgba(255, 255, 255, 0.95);
+    --light-border: rgba(0, 0, 0, 0.1);
+    --light-shadow: rgba(0, 0, 0, 0.1);
+    --light-text: rgba(0, 0, 0, 0.95);
+    --light-backdrop: blur(12px) saturate(180%);
+    
+    /* Dark Theme */
+    --dark-bg: rgba(10, 10, 15, 0.85);
+    --dark-border: rgba(255, 255, 255, 0.05);
+    --dark-shadow: rgba(0, 0, 0, 0.4);
+    --dark-text: rgba(255, 255, 255, 0.9);
+    --dark-backdrop: blur(12px) saturate(180%);
+    
+    /* Colors */
+    --success-color: rgb(46, 213, 115);
+    --error-color: rgb(255, 71, 87);
+    --info-color: rgb(54, 162, 235);
+    --warning-color: rgb(255, 159, 67);
+    --money-color: rgb(46, 204, 113);
+    --police-color: rgb(52, 152, 219);
+    --admin-color: rgb(155, 89, 182);
+    --phone-color: rgb(52, 172, 224);
+    
+    /* Animation */
+    --anim-duration: 0.4s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+#notifications-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    max-width: 90vw;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#notifications-container.top-right {
+    top: 20px;
+    right: 20px;
+    left: auto;
+    bottom: auto;
+    align-items: flex-end;
+}
+
+#notifications-container.top-left {
+    top: 20px;
+    left: 20px;
+    right: auto;
+    bottom: auto;
+    align-items: flex-start;
+}
+
+#notifications-container.top-center {
+    top: 20px;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translateX(-50%);
+    align-items: center;
+}
+
+#notifications-container.top-center .notification:nth-child(n+5) {
+    display: none;
+}
+
+#notifications-container.top-right .notification:nth-child(n+5) {
+    display: none;
+}
+
+#notifications-container.top-left .notification:nth-child(n+5) {
+    display: none;
+}
+
+#notifications-container.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    top: auto;
+    left: auto;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+}
+
+#notifications-container.bottom-right .notification:nth-child(n+5) {
+    display: none;
+}
+
+#notifications-container.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    top: auto;
+    right: auto;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+
+#notifications-container.bottom-left .notification:nth-child(n+5) {
+    display: none;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInTop {
+    from { transform: translateY(-120%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeOutRight {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(10%); }
+}
+
+@keyframes fadeOutLeft {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(-10%); }
+}
+
+@keyframes fadeOutTop {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10%); }
+}
+
+/* Açık tema animasyonları */
+#notifications-container.top-right .notification.light {
+    animation: slideInRightLight var(--anim-duration) forwards, fadeOutRightLight 0.5s forwards;
+    animation-delay: 0s, calc(var(--duration, 5000) * 1ms - 500ms);
+}
+
+#notifications-container.top-left .notification.light {
+    animation: slideInLeftLight var(--anim-duration) forwards, fadeOutLeftLight 0.5s forwards;
+    animation-delay: 0s, calc(var(--duration, 5000) * 1ms - 500ms);
+}
+
+#notifications-container.top-center .notification.light {
+    animation: slideInTopLight var(--anim-duration) forwards, fadeOutTopLight 0.5s forwards;
+    animation-delay: 0s, calc(var(--duration, 5000) * 1ms - 500ms);
+}
+
+@keyframes slideInRightLight {
+    from { transform: translateX(120%); opacity: 0; filter: brightness(1.2); }
+    to { transform: translateX(0); opacity: 1; filter: brightness(1); }
+}
+
+@keyframes slideInLeftLight {
+    from { transform: translateX(-120%); opacity: 0; filter: brightness(1.2); }
+    to { transform: translateX(0); opacity: 1; filter: brightness(1); }
+}
+
+@keyframes slideInTopLight {
+    from { transform: translateY(-120%); opacity: 0; filter: brightness(1.2); }
+    to { transform: translateY(0); opacity: 1; filter: brightness(1); }
+}
+
+@keyframes fadeOutRightLight {
+    from { opacity: 1; transform: translateX(0); filter: brightness(1); }
+    to { opacity: 0; transform: translateX(10%); filter: brightness(1.2); }
+}
+
+@keyframes fadeOutLeftLight {
+    from { opacity: 1; transform: translateX(0); filter: brightness(1); }
+    to { opacity: 0; transform: translateX(-10%); filter: brightness(1.2); }
+}
+
+@keyframes fadeOutTopLight {
+    from { opacity: 1; transform: translateY(0); filter: brightness(1); }
+    to { opacity: 0; transform: translateY(-10%); filter: brightness(1.2); }
+}
+
+.notification {
+    position: relative;
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    transform: translateX(120%);
+    animation: slideIn var(--anim-duration) forwards, fadeOut 0.5s forwards;
+    animation-delay: 0s, calc(var(--duration, 5000) * 1ms - 500ms);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: var(--dark-bg);
+    border: 1px solid var(--dark-border);
+    color: var(--dark-text);
+    backdrop-filter: var(--dark-backdrop);
+    --shadow: var(--dark-shadow);
+    max-width: 100%;
+    z-index: 1;
+}
+
+.notification.light {
+    background: var(--light-bg);
+    border: 1px solid var(--light-border);
+    color: var(--light-text);
+    backdrop-filter: var(--light-backdrop);
+    --shadow: var(--light-shadow);
+    animation: slideInLight var(--anim-duration) forwards, fadeOutLight 0.5s forwards;
+    animation-delay: 0s, calc(var(--duration, 5000) * 1ms - 500ms);
+}
+
+.notification.light:hover {
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.15), 0 3px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.notification.light .notification-icon::before {
+    animation: pulseLight 2s infinite;
+}
+
+.notification.light .notification-icon::after {
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    animation: shimmerLight 2s infinite;
+}
+
+.notification:hover {
+    z-index: 2;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3), 0 3px 12px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.notification:hover .notification-message {
+    opacity: 1;
+}
+
+.notification-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    position: relative;
+}
+
+.notification-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+}
+
+.notification-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: currentColor;
+    opacity: 0.15;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.notification-icon::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(25deg);
+    animation: shimmer 2s infinite;
+}
+
+.notification-content {
+    flex: 1;
+    padding: 14px 14px 14px 5px;
+    position: relative;
+    z-index: 2;
+}
+
+.notification-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.notification-title {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: currentColor;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2px;
+}
+
+.notification-subtitle {
+    font-size: 11px;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.notification-message {
+    font-size: 13px;
+    opacity: 0.9;
+    line-height: 1.5;
+    margin-top: 3px;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.notification-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, currentColor, rgba(255,255,255,0.5));
+    box-shadow: 0 0 8px 0 currentColor;
+    animation: progress linear forwards;
+    animation-duration: calc(var(--duration, 5000) * 1ms);
+}
+
+.notification.success {
+    color: var(--success-color);
+}
+
+.notification.error {
+    color: var(--error-color);
+}
+
+.notification.info {
+    color: var(--info-color);
+}
+
+.notification.warning {
+    color: var(--warning-color);
+}
+
+.notification.money {
+    color: var(--money-color);
+}
+
+.notification.police {
+    color: var(--police-color);
+}
+
+.notification.admin {
+    color: var(--admin-color);
+}
+
+.notification.phone {
+    color: var(--phone-color);
+}
+
+.notification-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: currentColor;
+    box-shadow: 0 0 15px 0 currentColor;
+    opacity: 0.8;
+}
+
+.notification:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.2s ease;
+}
+
+.notification:hover .notification-icon {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(10%); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.05); opacity: 0.25; }
+    100% { transform: scale(1); opacity: 0.15; }
+}
+
+@keyframes progress {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(25deg); }
+    100% { transform: translateX(100%) rotate(25deg); }
+}
+
+@keyframes glow {
+    0% { opacity: 0.25; filter: blur(15px); }
+    100% { opacity: 0.4; filter: blur(20px); }
+}
+
+/* Hologram efekti */
+.hologram-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.03) 40%,
+        rgba(255, 255, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0.03) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 200%;
+    animation: hologramShift 3s ease infinite;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 12px;
+}
+
+.notification-glow {
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: currentColor;
+    filter: blur(20px);
+    opacity: 0.35;
+    z-index: 0;
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes hologramShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #notifications-container {
+        width: 280px;
+    }
+    
+    .notification-icon-container {
+        width: 40px;
+    }
+    
+    .notification-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+}
+
+/* Cam efekti olmayan bildirimler için */
+.notification.no-glass {
+    backdrop-filter: none !important;
+}
+
+@keyframes slideInLight {
+    from { transform: translateX(120%); opacity: 0; filter: brightness(1.2); }
+    to { transform: translateX(0); opacity: 1; filter: brightness(1); }
+}
+
+@keyframes fadeOutLight {
+    from { opacity: 1; transform: translateX(0); filter: brightness(1); }
+    to { opacity: 0; transform: translateX(10%); filter: brightness(1.2); }
+}
+
+@keyframes pulseLight {
+    0% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(1.05); opacity: 0.2; }
+    100% { transform: scale(1); opacity: 0.1; }
+}
+
+@keyframes shimmerLight {
+    0% { transform: translateX(-100%) rotate(25deg); }
+    100% { transform: translateX(100%) rotate(25deg); }
+}

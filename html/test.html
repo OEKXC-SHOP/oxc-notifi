@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notify Test</title>
+    <meta name="author" content="Maien5">
+    <meta name="description" content="2E-Notify - Modern Glassmorphism Notification System">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: url('https://i.imgur.com/3pZrAJX.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+        
+        .control-panel {
+            background: rgba(15, 15, 20, 0.8);
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(46, 204, 113, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 30, 40, 0.6);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        button.clear {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        
+        button.clear:hover {
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .position-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .position-button {
+            padding: 8px;
+            text-align: center;
+            background: rgba(30, 30, 40, 0.6);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .position-button:hover {
+            background: rgba(60, 60, 80, 0.6);
+        }
+        
+        .position-button.active {
+            background: rgba(46, 204, 113, 0.3);
+            border-color: rgba(46, 204, 113, 0.5);
+        }
+        
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .preset-button {
+            padding: 8px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+        }
+        
+        .preset-success {
+            background: rgba(46, 213, 115, 0.2);
+            border: 1px solid rgba(46, 213, 115, 0.5);
+        }
+        
+        .preset-error {
+            background: rgba(255, 71, 87, 0.2);
+            border: 1px solid rgba(255, 71, 87, 0.5);
+        }
+        
+        .preset-info {
+            background: rgba(54, 162, 235, 0.2);
+            border: 1px solid rgba(54, 162, 235, 0.5);
+        }
+        
+        .preset-warning {
+            background: rgba(255, 159, 67, 0.2);
+            border: 1px solid rgba(255, 159, 67, 0.5);
+        }
+        
+        .preset-money {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid rgba(46, 204, 113, 0.5);
+        }
+        
+        .preset-police {
+            background: rgba(52, 152, 219, 0.2);
+            border: 1px solid rgba(52, 152, 219, 0.5);
+        }
+        
+        .preset-admin {
+            background: rgba(155, 89, 182, 0.2);
+            border: 1px solid rgba(155, 89, 182, 0.5);
+        }
+        
+        .preset-phone {
+            background: rgba(52, 172, 224, 0.2);
+            border: 1px solid rgba(52, 172, 224, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .preset-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .button-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="notifications-container" class="top-right"></div>
+    
+    <div class="control-panel">
+        <h1>Notify Test Paneli</h1>
+        
+        <div class="form-group">
+            <label>Bildirim Konumu:</label>
+            <div class="position-buttons">
+                <div class="position-button active" data-position="top-right">Sağ Üst</div>
+                <div class="position-button" data-position="top-left">Sol Üst</div>
+                <div class="position-button" data-position="top-center">Üst Orta</div>
+                <div class="position-button" data-position="bottom-right">Sağ Alt</div>
+                <div class="position-button" data-position="bottom-left">Sol Alt</div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Hazır Bildirim Türleri:</label>
+            <div class="preset-buttons">
+                <div class="preset-button preset-success" data-type="success">Başarılı</div>
+                <div class="preset-button preset-error" data-type="error">Hata</div>
+                <div class="preset-button preset-info" data-type="info">Bilgi</div>
+                <div class="preset-button preset-warning" data-type="warning">Uyarı</div>
+                <div class="preset-button preset-money" data-type="money">Para</div>
+                <div class="preset-button preset-police" data-type="police">Polis</div>
+                <div class="preset-button preset-admin" data-type="admin">Admin</div>
+                <div class="preset-button preset-phone" data-type="phone">Telefon</div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="title">Başlık:</label>
+            <input type="text" id="title" placeholder="Bildirim başlığı">
+        </div>
+        
+        <div class="form-group">
+            <label for="subtitle">Alt Başlık (opsiyonel):</label>
+            <input type="text" id="subtitle" placeholder="Alt başlık">
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Mesaj:</label>
+            <textarea id="message" placeholder="Bildirim mesajı"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="duration">Süre (ms):</label>
+            <input type="number" id="duration" value="5000" min="1000" step="500">
+        </div>
+        
+        <div class="form-group">
+            <label for="theme">Tema:</label>
+            <select id="theme">
+                <option value="dark">Koyu</option>
+                <option value="light">Açık</option>
+                <option value="auto">Otomatik</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="sound">Ses:</label>
+            <select id="sound">
+                <option value="">Ses Yok</option>
+                <option value="success">Başarılı</option>
+                <option value="error">Hata</option>
+                <option value="info">Bilgi</option>
+                <option value="warning">Uyarı</option>
+                <option value="money">Para</option>
+                <option value="police">Polis</option>
+                <option value="admin">Admin</option>
+                <option value="phone">Telefon</option>
+            </select>
+        </div>
+        
+        <div class="button-row">
+            <button id="send-notification">Bildirimi Gönder</button>
+            <button id="clear-all" class="clear">Tümünü Temizle</button>
+        </div>
+    </div>
+    
+    <!-- Script koruma sistemi - Gizli bilgi -->
+    <div id="script-info" style="display: none;" data-author="Maien5" data-name="2E-Notify"></div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const positionButtons = document.querySelectorAll('.position-button');
+            const presetButtons = document.querySelectorAll('.preset-button');
+            const sendButton = document.getElementById('send-notification');
+            const clearButton = document.getElementById('clear-all');
+            
+            let currentPosition = 'top-right';
+            let currentType = 'success';
+            
+            // Konum butonları
+            positionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    positionButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentPosition = this.getAttribute('data-position');
+                    
+                    // Bildirim konumunu ayarla
+                    window.dispatchEvent(new MessageEvent('message', {
+                        data: {
+                            action: 'notify',
+                            data: {
+                                author: "Maien5",
+                                scriptName: "2E-Notify",
+                                position: currentPosition
+                            }
+                        }
+                    }));
+                });
+            });
+            
+            // Hazır bildirim türleri
+            presetButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentType = this.getAttribute('data-type');
+                    
+                    // Hazır bildirim içeriği
+                    document.getElementById('title').value = getPresetTitle(currentType);
+                    document.getElementById('message').value = getPresetMessage(currentType);
+                    document.getElementById('sound').value = currentType;
+                });
+            });
+            
+            // Bildirim gönder
+            sendButton.addEventListener('click', function() {
+                const title = document.getElementById('title').value || getPresetTitle(currentType);
+                const subtitle = document.getElementById('subtitle').value || '';
+                const message = document.getElementById('message').value || getPresetMessage(currentType);
+                const duration = parseInt(document.getElementById('duration').value) || 5000;
+                const theme = document.getElementById('theme').value || 'dark';
+                const sound = document.getElementById('sound').value || '';
+                
+                window.dispatchEvent(new MessageEvent('message', {
+                    data: {
+                        action: 'notify',
+                        data: {
+                            author: "Maien5",
+                            scriptName: "2E-Notify",
+                            type: currentType,
+                            title: title,
+                            subtitle: subtitle,
+                            message: message,
+                            duration: duration,
+                            theme: theme,
+                            sound: sound,
+                            position: currentPosition
+                        }
+                    }
+                }));
+            });
+            
+            // Tümünü temizle
+            clearButton.addEventListener('click', function() {
+                window.dispatchEvent(new MessageEvent('message', {
+                    data: {
+                        action: 'clearAll'
+                    }
+                }));
+            });
+            
+            // Hazır bildirim başlıkları
+            function getPresetTitle(type) {
+                const titles = {
+                    'success': 'İşlem Başarılı',
+                    'error': 'Hata Oluştu',
+                    'info': 'Bilgilendirme',
+                    'warning': 'Dikkat',
+                    'money': 'Para İşlemi',
+                    'police': 'Polis Bildirimi',
+                    'admin': 'Yönetici Bildirimi',
+                    'phone': 'Yeni Mesaj'
+                };
+                return titles[type] || 'Bildirim';
+            }
+            
+            // Hazır bildirim mesajları
+            function getPresetMessage(type) {
+                const messages = {
+                    'success': 'İşleminiz başarıyla tamamlandı!',
+                    'error': 'İşlem sırasında bir hata oluştu. Lütfen tekrar deneyin.',
+                    'info': 'Yeni bir güncelleme mevcut. Detaylar için tıklayın.',
+                    'warning': 'Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.',
+                    'money': '+500$ nakit para aldınız.',
+                    'police': 'Bölgenizde şüpheli aktivite bildirildi.',
+                    'admin': 'Sunucu bakım için 15 dakika içinde yeniden başlatılacak.',
+                    'phone': 'John Doe: Hey, nasılsın? Bugün buluşalım mı?'
+                };
+                return messages[type] || 'Bildirim mesajı';
+            }
+        });
+    </script>
+</body>
+</html>
